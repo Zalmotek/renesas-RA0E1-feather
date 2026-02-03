@@ -10,45 +10,77 @@ The <a href="https://www.renesas.com/en/products/microcontrollers-microprocessor
 
 The Feather SoM incorporates the classic Feather features: GPIOs (analog and digital), I2C and SPI communication pins, UART pins, a LiPo battery power plug, and the USB programming port. The SoM also features a USB Type-C for powering the board and for USB debug upload, making it perfect for portable and low-power projects.
 
-<p align="center">
-  <img src="images/Feather-RA0E1-pinout.png" height="500">
-  <img src="images/Feather-RA0E1-BD.png" height="500">
-</p>
+## Pinout Overview
 
-## Feather Pinout
+The Feather has two headers:
+- **Left Header**: 16-pin (power, analog, SPI, UART)
+- **Right Header**: 12-pin (power, digital GPIO, I2C)
 
-The pinout for each port is as follows:
+### Left Header (16-pin)
 
-| Pin | Function | Notes |
-| :-- | :-- | :-- |
-| 1  | RESET |  |
-| 2  | VCC (3V3) |  |
-| 3  | AREF |  |
-| 4  | GND |  |
-| 5  | A0 | BSP_IO_PORT_00_PIN_08 |
-| 6  | A1 | BSP_IO_PORT_00_PIN_09 |
-| 7  | A2 | BSP_IO_PORT_00_PIN_12 |
-| 8  | A3 | BSP_IO_PORT_00_PIN_13 |
-| 9  | A4 | BSP_IO_PORT_00_PIN_14 |
-| 10 | A5 | BSP_IO_PORT_00_PIN_15 |
-| 11 | SCK | BSP_IO_PORT_01_PIN_12 |
-| 12 | MOSI | BSP_IO_PORT_01_PIN_09 |
-| 13 | MISO | BSP_IO_PORT_01_PIN_10 |
-| 14 | RX | BSP_IO_PORT_01_PIN_00 |
-| 15 | TX | BSP_IO_PORT_01_PIN_01 |
-| 16 | D14 (SPARE) | BSP_IO_PORT_02_PIN_15 |
-| 17 | VBAT |  |
-| 18 | EN |  |
-| 19 | BUS |  |
-| 20 | D13 | BSP_IO_PORT_01_PIN_02 |
-| 21 | D12 | BSP_IO_PORT_01_PIN_03 |
-| 22 | D11 | BSP_IO_PORT_04_PIN_07 |
-| 23 | D10 | BSP_IO_PORT_02_PIN_01 |
-| 24 | D9  | BSP_IO_PORT_03_PIN_00 |
-| 25 | D6  | BSP_IO_PORT_01_PIN_08 |
-| 26 | D5  | BSP_IO_PORT_02_PIN_00 |
-| 27 | SCL | BSP_IO_PORT_09_PIN_14 |
-| 28 | SDA | BSP_IO_PORT_09_PIN_13 |
+| Pin # | Feather Pin | MCU Pin | Function | Description |
+|-------|-------------|---------|----------|-------------|
+| 1 | RST | nRESET | Reset | Active-low reset |
+| 2 | 3V3 | - | Power | 3.3V regulated output |
+| 3 | AREF | AREF | Analog | Analog reference voltage |
+| 4 | GND | - | Power | Ground |
+| 5 | A0 | P015 | Analog | ADC input |
+| 6 | A1 | P014 | Analog | ADC input |
+| 7 | A2 | P013 | Analog | ADC input |
+| 8 | A3 | P012 | Analog | ADC input |
+| 9 | A4 | P009 | Analog | ADC input |
+| 10 | A5 | P008 | Analog | ADC input |
+| 11 | SCK | P112 | SPI | SPI clock |
+| 12 | MOSI | P109 | SPI | SPI data out (Microcontroller Out) |
+| 13 | MISO | P110 | SPI | SPI data in (Microcontroller In) |
+| 14 | RX | P100 | UART | UART receive |
+| 15 | TX | P101 | UART | UART transmit |
+| 16 | SPARE | P215 | GPIO | Spare GPIO |
+
+### Right Header (12-pin)
+
+| Pin # | Feather Pin | MCU Pin | Function | Description |
+|-------|-------------|---------|----------|-------------|
+| 1 | BAT | - | Power | LiPo battery input (3.0-4.2V) |
+| 2 | EN | PWR_EN | Control | Enable pin - pull low to disable 3.3V regulator |
+| 3 | USB | - | Power | USB VBUS (5V) |
+| 4 | D0 | P407 | GPIO | Digital I/O |
+| 5 | D1 | P201 | GPIO | Digital I/O |
+| 6 | D2 | P200 | GPIO | Digital I/O |
+| 7 | D3 | P300 | GPIO/SWD | Digital I/O / SWCLK |
+| 8 | D4 | P108 | GPIO/SWD | Digital I/O / SWDIO |
+| 9 | D5 | P103 | GPIO | Digital I/O |
+| 10 | D6 | P102 | GPIO | Digital I/O |
+| 11 | SCL | P914 | I2C | I2C clock |
+| 12 | SDA | P913 | I2C | I2C data |
+
+### Power Pins
+
+| Pin | Voltage | Description |
+|-----|---------|-------------|
+| 3V3 | 3.3V | Regulated 3.3V output from ISL9120 buck converter |
+| USB | 5V | USB VBUS power input (4.5-5.5V) |
+| BAT | 3.0-4.2V | LiPo battery input via JST PH connector |
+| GND | 0V | Common ground |
+| EN | - | Active-high enable for 3.3V regulator (pulled high by default) |
+
+### Special Functions
+
+#### SWD Debug Interface
+The SWD debug connector is directly connected to:
+- **SWDIO**: P108 (shared with D4)
+- **SWCLK**: P300 (shared with D3)
+- **nRESET**: Reset pin
+
+#### UART Interfaces
+The board has two UART interfaces:
+1. **Feather UART** (P100/P101): Available on header pins RX/TX
+2. **FTDI UART** (P207/P208): Connected to USB-UART bridge (FT231X)
+
+#### Additional Features
+- **User LED**: Connected to P214 (active-high, green)
+- **Reset Button**: Connected to nRESET
+- **Battery Charger**: ISL9205 for LiPo charging via USB
 
 ## 🐣🏁 Quick Start Guide
 
