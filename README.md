@@ -102,7 +102,7 @@ You will also need to install the J-Link Software pack from <a href="https://www
 
 #### Running your first project
 
-Once you have all the tools installed, follow <a href="https://github.com/Zalmotek/zalmotek-RA0E1-feather/tree/main/firmware/Blink/Ra0E1_Feather_Blink">this</a> guide to learn how to import, build, and run a project in the e² studio IDE. 
+Once you have all the tools installed, follow <a href="https://github.com/Zalmotek/zalmotek-RA0E1-feather/tree/diode-RA0E1-feather-rev1.0.0/firmware/UART/Ra0E1_Feather_USB_Serial">this</a> guide to learn how to import, build, and run a project in the e² studio IDE. 
 
 ---
 Thank you for choosing the Zalmotek RA0E1 Feather SoM! 
